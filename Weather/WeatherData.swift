@@ -14,9 +14,9 @@ public class WeatherData: NSObject {
     
     let currentTime: String
     let temperature: Int
-    //let temperatureMin: Int
+    let temperatureMin: Int
     //let temperatureMinTimeStr: String
-    //let temperatureMax: Int
+    let temperatureMax: Int
     //let temperatureMaxTimeStr: String
     let humidity: Double
     let precipProbability: Double
@@ -26,7 +26,7 @@ public class WeatherData: NSObject {
     
     public init(weatherDictionary: NSDictionary) {
         let weather = weatherDictionary["currently"] as! NSDictionary
-        //let weatherdaily = weatherDictionary["daily"] as NSDictionary
+        let weatherdaily = weatherDictionary["daily"] as! NSDictionary
         
         temperature = weather["temperature"] as! Int
         //temperatureMin = weatherdaily["temperatureMin"] as Int
@@ -36,7 +36,36 @@ public class WeatherData: NSObject {
         precipProbability = weather["precipProbability"] as! Double
         summary = weather["summary"] as! String
         windspeed = weather["windSpeed"] as! Int
-        
+        var tMin = 0
+        var tMax = 0
+        if let temp = weatherdaily["data"] as? NSArray{
+            for record in temp{
+                
+                let temperatureMinTime = record.objectForKey("temperatureMinTime") as! NSNumber
+                let timeIntervalTempMin = NSTimeInterval(temperatureMinTime)
+                let dateTempMin = NSDate(timeIntervalSince1970: timeIntervalTempMin)
+                let dateFormatterTempMin = NSDateFormatter()
+                //                dateFormatterTempMin.timeStyle = .ShortStyle
+                dateFormatterTempMin.dateStyle = .ShortStyle
+                let date = dateFormatterTempMin.stringFromDate(dateTempMin)
+                println(date)
+                println(dateFormatterTempMin.stringFromDate(NSDate()))
+                if(date==dateFormatterTempMin.stringFromDate(NSDate())){
+                    println(record.objectForKey("temperatureMin"))
+                    println(record.objectForKey("temperatureMinTime"))
+                    println(record.objectForKey("temperatureMax"))
+                    println(record.objectForKey("temperatureMaxTime"))
+                    println(farenheitToCelsius(record.objectForKey("temperatureMin") as! NSNumber))
+                    println(farenheitToCelsius(record.objectForKey("temperatureMax") as! NSNumber))
+                    println(farenheitToCelsius(weather["temperature"] as! NSNumber))
+                    tMin = Int(record.objectForKey("temperatureMin") as! NSNumber)
+                    tMax = Int(record.objectForKey("temperatureMax") as! NSNumber)
+                }
+            }
+            
+        }
+        temperatureMin = tMin
+        temperatureMax = tMax
         let time = weather["time"] as! Int
         let timeInterval = NSTimeInterval(time)
         let date = NSDate(timeIntervalSince1970: timeInterval)
@@ -60,4 +89,13 @@ public class WeatherData: NSObject {
         //temperatureMaxTimeStr = dateFormatterTempMax.stringFromDate(dateTempMax)
     }
     
+    
+    
+}
+
+
+func farenheitToCelsius(temperature:NSNumber)->NSNumber{
+    
+    let temperature = (Double(temperature)-32)/1.8
+    return temperature
 }

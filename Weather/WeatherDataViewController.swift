@@ -20,8 +20,8 @@ public class WeatherDataViewController: UIViewController {
     @IBOutlet public var humidityLabel: UILabel!
     @IBOutlet public var precipitationLabel: UILabel!
     @IBOutlet public var locationLabel: UILabel!
-    //@IBOutlet public var temperatureMinLabel: UILabel!
-    //@IBOutlet public var temperatureMaxLabel: UILabel!
+    @IBOutlet weak var temperatureMaxLabel: UILabel!
+    @IBOutlet weak var temperatureMinLabel: UILabel!
     //@IBOutlet public var temperatureTimeMinLabel: UILabel!
     //@IBOutlet public var temperatureTimeMaxLabel: UILabel!
     
@@ -36,8 +36,8 @@ public class WeatherDataViewController: UIViewController {
             self.timeLabel.text =  "\(unwrappedWD.currentTime)"
             self.humidityLabel.text =  "\(unwrappedWD.humidity)"
             self.precipitationLabel.text =  "\(unwrappedWD.precipProbability)"
-            //self.temperatureMinLabel.text =  "\(unwrappedWD.temperatureMin)"
-            //self.temperatureMaxLabel.text =  "\(unwrappedWD.temperatureMax)"
+            self.temperatureMinLabel.text =  "\(unwrappedWD.temperatureMin)"
+            self.temperatureMaxLabel.text =  "\(unwrappedWD.temperatureMax)"
             //self.temperatureTimeMinLabel.text =  "\(unwrappedWD.temperatureMinTimeStr)"
             //self.temperatureTimeMaxLabel.text =  "\(unwrappedWD.temperatureMaxTimeStr)"
             

@@ -11,7 +11,6 @@
 		5F2734E219F22C3A00736240 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2734E119F22C3A00736240 /* LocationTableViewController.swift */; };
 		5F598F1C19F0562F00FE81A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F598F1B19F0562F00FE81A4 /* AppDelegate.swift */; };
 		5F598F1E19F0562F00FE81A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F598F1D19F0562F00FE81A4 /* ViewController.swift */; };
-		5F598F2119F0562F00FE81A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F598F1F19F0562F00FE81A4 /* Main.storyboard */; };
 		5F598F2319F0562F00FE81A4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F598F2219F0562F00FE81A4 /* Images.xcassets */; };
 		5F598F2619F0562F00FE81A4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F598F2419F0562F00FE81A4 /* LaunchScreen.xib */; };
 		5F598F3219F0563000FE81A4 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F598F3119F0563000FE81A4 /* WeatherTests.swift */; };
@@ -27,6 +26,7 @@
 		5F598F7919F0C8C700FE81A4 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F598F7819F0C8C700FE81A4 /* MainInterface.storyboard */; };
 		5F598F7C19F0C8C700FE81A4 /* Weather Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F598F6F19F0C8C700FE81A4 /* Weather Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F598F8319F0C93600FE81A4 /* WeatherDataKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F598F4919F0BEC100FE81A4 /* WeatherDataKit.framework */; };
+		617D1C191AF03E67006EA640 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 617D1C181AF03E67006EA640 /* Main.storyboard */; };
 		E1682BB51AE8903B00C18B5F /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1682BB41AE8903B00C18B5F /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
@@ -106,7 +106,6 @@
 		5F598F1A19F0562F00FE81A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F598F1B19F0562F00FE81A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F598F1D19F0562F00FE81A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5F598F2019F0562F00FE81A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F598F2219F0562F00FE81A4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5F598F2519F0562F00FE81A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5F598F2B19F0563000FE81A4 /* WeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +125,7 @@
 		5F598F7519F0C8C700FE81A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F598F7619F0C8C700FE81A4 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5F598F7819F0C8C700FE81A4 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		617D1C181AF03E67006EA640 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E1682BB41AE8903B00C18B5F /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,7 +202,7 @@
 			children = (
 				5F598F1B19F0562F00FE81A4 /* AppDelegate.swift */,
 				5F598F1D19F0562F00FE81A4 /* ViewController.swift */,
-				5F598F1F19F0562F00FE81A4 /* Main.storyboard */,
+				617D1C181AF03E67006EA640 /* Main.storyboard */,
 				5F598F2219F0562F00FE81A4 /* Images.xcassets */,
 				5F598F2419F0562F00FE81A4 /* LaunchScreen.xib */,
 				5F598F1919F0562F00FE81A4 /* Supporting Files */,
@@ -472,9 +472,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1682BB51AE8903B00C18B5F /* Entitlements.plist in Resources */,
-				5F598F2119F0562F00FE81A4 /* Main.storyboard in Resources */,
 				5F598F2619F0562F00FE81A4 /* LaunchScreen.xib in Resources */,
 				5F598F2319F0562F00FE81A4 /* Images.xcassets in Resources */,
+				617D1C191AF03E67006EA640 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,14 +591,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5F598F1F19F0562F00FE81A4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F598F2019F0562F00FE81A4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5F598F2419F0562F00FE81A4 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
