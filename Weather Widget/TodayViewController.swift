@@ -1,50 +1,79 @@
 //
 //  TodayViewController.swift
-//  Weather Widget
+//  Weather Today
 //
-//  Created by Joyce Echessa on 10/17/14.
-//  Copyright (c) 2014 Appcoda. All rights reserved.
+//  Created by Bruno Lima Martins on 5/5/15.
+//  Copyright (c) 2015 Bruno Lima. All rights reserved.
 //
-//  Changes and features to be added by Son Phan on 04/27/15
-//  Open-source on Github.com/sonphanusa
 
 import UIKit
 import NotificationCenter
 import WeatherDataKit
+import CoreLocation
 
-class TodayViewController: WeatherDataViewController, NCWidgetProviding {
+class TodayViewController: WeatherDataViewController, NCWidgetProviding, CLLocationManagerDelegate {
     
-    var defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.appcoda.weather")!
+    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
     var widgetExpanded = false
     var latLong = "41.3887242,-82.0722262"
-    
+    let locationManager = CLLocationManager()
+    var locations  = ["name": "MyLocation", "latLong": ""]
     @IBOutlet weak var showMoreButton: UIButton!
     
     @IBOutlet weak var moreDetailsContainerHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet var helpView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         moreDetailsContainerHeightConstraint.constant = 0
         
-        temperatureLabel.text = "--"
+        feelslikeLabel.text = "--"
         summaryLabel.text = "--"
         timeLabel.text = "--"
         humidityLabel.text = "--"
-        feelslikeLabel.text = "--"
         precipitationLabel.text = "--"
+        temperatureLabel.text =  "--"
+        windspeedLabel.text =  "--"
+        temperatureMinLabel.text =  "--"
+        temperatureMaxLabel.text =  "--"
+        locationLabel.text =  "--"
+        if(defaults.objectForKey("type")==nil){
+            defaults.setObject(1 as Int?, forKey:"type")
+            defaults.synchronize()
+        }
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: "showDetails")
+        helpView.addGestureRecognizer(gesture)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        checkForSetLocation()
-        
-        getWeatherData(latLong, completion: { (error) -> () in
-            if error == nil {
-                self.updateData()
+        if(defaults.objectForKey("locationData")==nil){
+            defaults.setObject(locations, forKey:"locationData")
+            defaults.synchronize()
+        }
+        let locationData = defaults.objectForKey("locationData") as! [String:String]
+        if("\(locationData.0)" == "[latLong: , name: MyLocation]"){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+        else{
+            let locationDict: NSDictionary? = defaults.objectForKey("locationData") as? NSDictionary
+            if let dictionary = locationDict {
+                locationLabel.text = dictionary["name"] as? String
+                latLong = dictionary["latLong"] as! String
             }
-        })
+            getWeatherData(latLong, completion: { (error) -> () in
+                if error == nil {
+                    self.updateData()
+                }
+            })
+            
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,52 +82,72 @@ class TodayViewController: WeatherDataViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
-        // Perform any setup necessary in order to update the view.
-
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
-        checkForSetLocation()
-        
-        getWeatherData(latLong, completion: { (error) -> () in
-            if error == nil {
-                self.updateData()
-                completionHandler(.NewData)
-            } else {
-                completionHandler(.NoData)
-            }
-        })
     }
     
     func widgetMarginInsetsForProposedMarginInsets
         (defaultMarginInsets: UIEdgeInsets) -> (UIEdgeInsets) {
-        return UIEdgeInsetsZero
+            return UIEdgeInsetsMake(0, 20, 0,0)
     }
     
-    @IBAction func showMore(sender: UIButton) {
+    func showDetails(){
         if widgetExpanded {
             moreDetailsContainerHeightConstraint.constant = 0
             showMoreButton.transform = CGAffineTransformMakeRotation(0)
             widgetExpanded = false
         } else {
-            moreDetailsContainerHeightConstraint.constant = 100
+            moreDetailsContainerHeightConstraint.constant = 220
             showMoreButton.transform = CGAffineTransformMakeRotation(CGFloat(180.0 * M_PI/180.0))
             widgetExpanded = true
         }
     }
     
-    func checkForSetLocation() {
-        // hasSetLocation is set in NSUserDefaults to track whether the user has set any other location apart from My Location
-        var hasSetOtherLocation: Bool? = defaults.boolForKey("hasSetLocation")
-        if let hasSetLoc = hasSetOtherLocation {
-            if (hasSetLoc == true) {
-                let locationDict: NSDictionary? = defaults.objectForKey("locationData") as? NSDictionary
-                if let dictionary = locationDict {
-                    locationLabel.text = dictionary["name"] as? String
-                    latLong = dictionary["latLong"] as! String
-                }
+    @IBAction func showMore(sender: UIButton) {
+    showDetails()
+    
+    }
+ 
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
+            
+            if (error != nil) {
+                NSLog("Error" + error.localizedDescription)
+                return
             }
+            
+            if placemarks.count > 0 {
+                let placem = placemarks[0] as! CLPlacemark
+                self.displayLocationInfo(placem)
+            } else {
+                NSLog("Placemarks = 0")
+            }
+        })
+    }
+    func displayLocationInfo(placemark: CLPlacemark) {
+        if (placemark.name==nil) {
+        }
+            
+        else{
+            locationManager.stopUpdatingLocation()
+            latLong = String(stringInterpolationSegment: placemark.location.coordinate.latitude)+","+String(stringInterpolationSegment: placemark.location.coordinate.longitude)
+            
+            getWeatherData(latLong, completion: { (error) -> () in
+                if error == nil {
+                    self.locationLabel.text = placemark.locality
+                    self.updateData()
+                }
+            })
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    }
+
+    @IBAction func poweredButtonPressed(sender: UIButton) {
+        if let context = extensionContext {
+            
+            
+            let targetURL=NSURL(fileURLWithPath: "WeatherCF://")
+            context.openURL(targetURL!, completionHandler: nil)
         }
     }
 }

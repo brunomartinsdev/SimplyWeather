@@ -48,16 +48,16 @@ public class WeatherData: NSObject {
                 //                dateFormatterTempMin.timeStyle = .ShortStyle
                 dateFormatterTempMin.dateStyle = .ShortStyle
                 let date = dateFormatterTempMin.stringFromDate(dateTempMin)
-                println(date)
-                println(dateFormatterTempMin.stringFromDate(NSDate()))
+//                println(date)
+//                println(dateFormatterTempMin.stringFromDate(NSDate()))
                 if(date==dateFormatterTempMin.stringFromDate(NSDate())){
-                    println(record.objectForKey("temperatureMin"))
-                    println(record.objectForKey("temperatureMinTime"))
-                    println(record.objectForKey("temperatureMax"))
-                    println(record.objectForKey("temperatureMaxTime"))
-                    println(farenheitToCelsius(record.objectForKey("temperatureMin") as! NSNumber))
-                    println(farenheitToCelsius(record.objectForKey("temperatureMax") as! NSNumber))
-                    println(farenheitToCelsius(weather["temperature"] as! NSNumber))
+//                    println(record.objectForKey("temperatureMin"))
+//                    println(record.objectForKey("temperatureMinTime"))
+//                    println(record.objectForKey("temperatureMax"))
+//                    println(record.objectForKey("temperatureMaxTime"))
+//                    println((record.objectForKey("temperatureMin") as! NSNumber))
+//                    println((record.objectForKey("temperatureMax") as! NSNumber))
+//                    println((weather["temperature"] as! NSNumber))
                     tMin = Int(record.objectForKey("temperatureMin") as! NSNumber)
                     tMax = Int(record.objectForKey("temperatureMax") as! NSNumber)
                 }
@@ -94,8 +94,4 @@ public class WeatherData: NSObject {
 }
 
 
-func farenheitToCelsius(temperature:NSNumber)->NSNumber{
-    
-    let temperature = (Double(temperature)-32)/1.8
-    return temperature
-}
+

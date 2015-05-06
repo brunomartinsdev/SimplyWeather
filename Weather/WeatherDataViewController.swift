@@ -20,24 +20,49 @@ public class WeatherDataViewController: UIViewController {
     @IBOutlet public var humidityLabel: UILabel!
     @IBOutlet public var precipitationLabel: UILabel!
     @IBOutlet public var locationLabel: UILabel!
-    @IBOutlet weak var temperatureMaxLabel: UILabel!
-    @IBOutlet weak var temperatureMinLabel: UILabel!
+    @IBOutlet public var temperatureMaxLabel: UILabel!
+    @IBOutlet public var temperatureMinLabel: UILabel!
+
     //@IBOutlet public var temperatureTimeMinLabel: UILabel!
     //@IBOutlet public var temperatureTimeMaxLabel: UILabel!
     
     public var weatherData: WeatherData?
     
+    @IBOutlet public var scrollView: UIScrollView!
+    
+    
+    
     public func updateData() {
         if let unwrappedWD = weatherData {
-            self.temperatureLabel.text =  "\(unwrappedWD.temperature)"
-            self.feelslikeLabel.text =  "\(unwrappedWD.feelslike)"
+            
+//            if UIDevice.currentDevice().userInterfaceIdiom == .Pad{
+//                
+//            }else{}
+                self.temperatureLabel.layer.cornerRadius = 85.0
+            self.temperatureLabel.layer.borderColor = UIColor.whiteColor().CGColor
+            self.temperatureLabel.layer.borderWidth = 2.0
             self.windspeedLabel.text =  "\(unwrappedWD.windspeed)"
             self.summaryLabel.text =  "\(unwrappedWD.summary)"
             self.timeLabel.text =  "\(unwrappedWD.currentTime)"
             self.humidityLabel.text =  "\(unwrappedWD.humidity)"
             self.precipitationLabel.text =  "\(unwrappedWD.precipProbability)"
-            self.temperatureMinLabel.text =  "\(unwrappedWD.temperatureMin)"
-            self.temperatureMaxLabel.text =  "\(unwrappedWD.temperatureMax)"
+            let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+            if(defaults.objectForKey("type")==nil){
+                defaults.setObject(1 as Int?, forKey:"type")
+                defaults.synchronize()
+            }
+            if(defaults.objectForKey("type") as! Int==1){
+                self.temperatureMinLabel.text =  "\(unwrappedWD.temperatureMin)"
+                self.temperatureMaxLabel.text =  "\(unwrappedWD.temperatureMax)"
+                self.temperatureLabel.text =  "\(unwrappedWD.temperature)"
+                self.feelslikeLabel.text =  "\(unwrappedWD.feelslike)"
+            }else{
+                self.temperatureMinLabel.text =  "\(farenheitToCelsius(unwrappedWD.temperatureMin))"
+                self.temperatureMaxLabel.text =  "\(farenheitToCelsius(unwrappedWD.temperatureMax))"
+                self.temperatureLabel.text =  "\(farenheitToCelsius(unwrappedWD.temperature))"
+                self.feelslikeLabel.text =  "\(farenheitToCelsius(unwrappedWD.feelslike))"
+            }
+            
             //self.temperatureTimeMinLabel.text =  "\(unwrappedWD.temperatureMinTimeStr)"
             //self.temperatureTimeMaxLabel.text =  "\(unwrappedWD.temperatureMaxTimeStr)"
             
@@ -47,12 +72,16 @@ public class WeatherDataViewController: UIViewController {
     
     public func getWeatherData(latLong: String, completion: (error: NSError?) -> ()) {
         WeatherService.sharedInstance.fetchWeatherData(latLong, completion: { (data, error) -> () in
-        dispatch_async(dispatch_get_main_queue()) {
-        self.weatherData = data
-        completion(error: error)
-        }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.weatherData = data
+                completion(error: error)
+            }
         })
     }
-    
+    func farenheitToCelsius(temperature:NSNumber)->Int{
+        
+        let temperature = (Double(temperature)-32)/1.8
+        return Int(temperature)
+    }
 }
 
