@@ -17,8 +17,8 @@ class WeatherService {
     let session: NSURLSession
     
     class var sharedInstance: WeatherService {
-    struct Singleton {
-        static let instance = WeatherService()
+        struct Singleton {
+            static let instance = WeatherService()
         }
         return Singleton.instance
     }
@@ -30,28 +30,43 @@ class WeatherService {
     
     func fetchWeatherData(latLong: String, completion: WeatherDataCompletionBlock) {
         
-        let baseUrl = NSURL(string: "https://api.forecast.io/forecast/94f0d4c9a77ee298721b483e88575206/\(latLong)")
+        let apiKey = "YOURAPIKEY"
+        
+        if(apiKey=="YOURAPIKEY"){
+            NSLog("\n**********\nInsert APIKEY:\nWeatherDataKit>WeatherData>WeatherService\nhttps://developer.forecast.io/register\n**********")
+        }
+        
+        let baseUrl = NSURL(string: "https://api.forecast.io/forecast/"+apiKey+"/\(latLong)")
         let request = NSURLRequest(URL: baseUrl!)
         let task = session.dataTaskWithRequest(request) {[unowned self] data, response, error in
             if error == nil {
                 var jsonError: NSError?
                 if (jsonError == nil) {
-                    let weatherDictionary = NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments, error: &jsonError) as! NSDictionary
-                    
-                    let data = WeatherData(weatherDictionary: weatherDictionary)
-                    completion(data: data, error: nil)
-                } else {
+                    if let weatherDictionary = NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments, error: &jsonError) as? NSDictionary{
+                        self.defaults.setObject(weatherDictionary, forKey:"weatherDictionary")
+                        self.defaults.synchronize()
+                        let data = WeatherData(weatherDictionary: weatherDictionary)
+                        completion(data: data, error: nil)
+                    }} else {
                     completion(data: nil, error: jsonError)
                 }
             } else {
-                completion(data: nil, error: error)
+                if(self.defaults.objectForKey("weatherDictionary")==nil){
+                    completion(data: nil, error: error)
+                }
+                else{
+                    let weatherDictionary = self.defaults.objectForKey("weatherDictionary") as! NSDictionary
+                    let data = WeatherData(weatherDictionary: weatherDictionary)
+                    completion(data: data, error: nil)
+                }
+                
             }
         }
         
         task.resume()
     }
     
+    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
 }
-
 
 

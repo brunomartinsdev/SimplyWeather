@@ -17,7 +17,7 @@ class TodayViewController: WeatherDataViewController, NCWidgetProviding, CLLocat
     var widgetExpanded = false
     var latLong = "41.3887242,-82.0722262"
     let locationManager = CLLocationManager()
-    var locations  = ["name": "MyLocation", "latLong": ""]
+    var locations  = ["name": "My Location", "latLong": ""]
     @IBOutlet weak var showMoreButton: UIButton!
     
     @IBOutlet weak var moreDetailsContainerHeightConstraint: NSLayoutConstraint!
@@ -54,7 +54,7 @@ class TodayViewController: WeatherDataViewController, NCWidgetProviding, CLLocat
             defaults.synchronize()
         }
         let locationData = defaults.objectForKey("locationData") as! [String:String]
-        if("\(locationData.0)" == "[latLong: , name: MyLocation]"){
+        if("\(locationData.0)" == "[latLong: , name: My Location]"){
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.requestWhenInUseAuthorization()
@@ -102,10 +102,10 @@ class TodayViewController: WeatherDataViewController, NCWidgetProviding, CLLocat
     }
     
     @IBAction func showMore(sender: UIButton) {
-    showDetails()
-    
+        showDetails()
+        
     }
- 
+    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
             
@@ -141,7 +141,7 @@ class TodayViewController: WeatherDataViewController, NCWidgetProviding, CLLocat
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
     }
-
+    
     @IBAction func poweredButtonPressed(sender: UIButton) {
         if let context = extensionContext {
             

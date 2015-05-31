@@ -18,15 +18,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
-        
-        if let font = UIFont(name: "Avenir-Black", size: 18) {
-            doneButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-        }
         let plusButton = UIBarButtonItem(title: "+", style: .Plain, target: self, action: Selector("seguex"))
-        
-        if let font = UIFont(name: "Avenir-Black", size: 18) {
-            plusButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-        }
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "LogCell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -46,8 +38,27 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func doneButtonPressed(sender:UIBarButtonItem){
-        animVIew()
         performSegueWithIdentifier("back", sender: self)
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if(segue.identifier == "back"){
+            let animationDuration = 0.35
+            
+            
+            view.transform = CGAffineTransformScale(view.transform, 0.001, 0.001)
+            
+            UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+                let v = self.navigationController?.view
+                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: v!
+                    , cache: false)
+            })
+            
+        }
+        else{
+            animVIew()}
     }
     
     func animVIew(){
@@ -60,7 +71,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
             UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
             let v = self.navigationController?.view
-            UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: v!
+            UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromLeft, forView: v!
                 , cache: false)
         })
         
@@ -90,7 +101,13 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        var dict = Dictionary<Int, [String:String]>()
+        dict = savedArray as! Dictionary<Int, [String : String]>
+        println(dict[indexPath.row]?.description)
+        if(dict[indexPath.row]?.description=="[latLong: , name: My Location]"){
+            return false
+        }else{
+            return true}
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -134,7 +151,9 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if(editingStyle == .Delete ) {
+            
             let data = defaults.objectForKey("locationList") as! NSData
             var savedArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
             var dict = Dictionary<Int, [String : String]>()
@@ -159,7 +178,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     func reloadTable(){
         if(defaults.objectForKey("locationList")==nil){
-            let locations  = ["name": "MyLocation", "latLong": ""]
+            let locations  = ["name": "My Location", "latLong": ""]
             var dict = Dictionary<Int, [String:String]>()
             dict[0] = locations.0
             let dataSave = NSKeyedArchiver.archivedDataWithRootObject(dict)

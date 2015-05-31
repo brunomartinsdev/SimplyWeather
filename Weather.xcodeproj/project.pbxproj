@@ -23,17 +23,18 @@
 		61324BA11AFABAFB007DA3F3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61324BA01AFABAFB007DA3F3 /* Info.plist */; };
 		61324BA31AFABB04007DA3F3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61324BA21AFABB04007DA3F3 /* Info.plist */; };
 		61324BA51AFABB12007DA3F3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61324BA41AFABB12007DA3F3 /* Info.plist */; };
-		616C4B171AFAB17600D2E148 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B101AFAB17600D2E148 /* AppDelegate.swift */; };
-		616C4B181AFAB17600D2E148 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B111AFAB17600D2E148 /* LocationViewController.swift */; };
-		616C4B191AFAB17600D2E148 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616C4B121AFAB17600D2E148 /* Main.storyboard */; };
+		61628C9B1B1BA16700203295 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61628C951B1BA16700203295 /* Main.storyboard */; };
+		61628C9C1B1BA16700203295 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61628C961B1BA16700203295 /* AppDelegate.swift */; };
+		61628C9D1B1BA16700203295 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61628C971B1BA16700203295 /* LocationViewController.swift */; };
+		61628C9E1B1BA16700203295 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61628C981B1BA16700203295 /* OptionViewController.swift */; };
+		61628C9F1B1BA16700203295 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61628C991B1BA16700203295 /* TabBarViewController.swift */; };
+		61628CA01B1BA16700203295 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61628C9A1B1BA16700203295 /* ViewController.swift */; };
+		61628CA31B1BA2B100203295 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61628CA11B1BA2B100203295 /* MainInterface.storyboard */; };
+		61628CA41B1BA2B100203295 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61628CA21B1BA2B100203295 /* TodayViewController.swift */; };
 		616C4B1A1AFAB17600D2E148 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 616C4B131AFAB17600D2E148 /* Settings.bundle */; };
-		616C4B1B1AFAB17600D2E148 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B141AFAB17600D2E148 /* TabBarViewController.swift */; };
-		616C4B201AFAB1BB00D2E148 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616C4B1E1AFAB1BB00D2E148 /* MainInterface.storyboard */; };
 		616C4B251AFAB1E000D2E148 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B221AFAB1E000D2E148 /* WeatherData.swift */; };
 		616C4B261AFAB1E000D2E148 /* WeatherDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B231AFAB1E000D2E148 /* WeatherDataViewController.swift */; };
 		616C4B271AFAB1E000D2E148 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B241AFAB1E000D2E148 /* WeatherService.swift */; };
-		616C4B291AFAB49E00D2E148 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B281AFAB49E00D2E148 /* TodayViewController.swift */; };
-		616C4B2B1AFAB4AB00D2E148 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C4B2A1AFAB4AB00D2E148 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,19 +124,20 @@
 		61324BA01AFABAFB007DA3F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61324BA21AFABB04007DA3F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61324BA41AFABB12007DA3F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61628C951B1BA16700203295 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		61628C961B1BA16700203295 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		61628C971B1BA16700203295 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		61628C981B1BA16700203295 /* OptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
+		61628C991B1BA16700203295 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		61628C9A1B1BA16700203295 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		61628CA11B1BA2B100203295 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		61628CA21B1BA2B100203295 /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		616C4B0F1AFAB17500D2E148 /* Weather-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Weather-Bridging-Header.h"; sourceTree = "<group>"; };
-		616C4B101AFAB17600D2E148 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		616C4B111AFAB17600D2E148 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
-		616C4B121AFAB17600D2E148 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		616C4B131AFAB17600D2E148 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		616C4B141AFAB17600D2E148 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		616C4B1D1AFAB1BB00D2E148 /* Weather Widget-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Weather Widget-Bridging-Header.h"; sourceTree = "<group>"; };
-		616C4B1E1AFAB1BB00D2E148 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		616C4B221AFAB1E000D2E148 /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		616C4B231AFAB1E000D2E148 /* WeatherDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataViewController.swift; sourceTree = "<group>"; };
 		616C4B241AFAB1E000D2E148 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		616C4B281AFAB49E00D2E148 /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		616C4B2A1AFAB4AB00D2E148 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,14 +211,15 @@
 			isa = PBXGroup;
 			children = (
 				61324B9A1AFABA23007DA3F3 /* Entitlements.plist */,
-				616C4B101AFAB17600D2E148 /* AppDelegate.swift */,
-				616C4B111AFAB17600D2E148 /* LocationViewController.swift */,
-				616C4B121AFAB17600D2E148 /* Main.storyboard */,
-				616C4B141AFAB17600D2E148 /* TabBarViewController.swift */,
-				616C4B2A1AFAB4AB00D2E148 /* ViewController.swift */,
 				5F598F2219F0562F00FE81A4 /* Images.xcassets */,
 				5F598F1919F0562F00FE81A4 /* Supporting Files */,
 				616C4B0F1AFAB17500D2E148 /* Weather-Bridging-Header.h */,
+				61628C951B1BA16700203295 /* Main.storyboard */,
+				61628C961B1BA16700203295 /* AppDelegate.swift */,
+				61628C971B1BA16700203295 /* LocationViewController.swift */,
+				61628C981B1BA16700203295 /* OptionViewController.swift */,
+				61628C991B1BA16700203295 /* TabBarViewController.swift */,
+				61628C9A1B1BA16700203295 /* ViewController.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -304,10 +307,10 @@
 		5F598F7319F0C8C700FE81A4 /* Weather Widget */ = {
 			isa = PBXGroup;
 			children = (
-				616C4B281AFAB49E00D2E148 /* TodayViewController.swift */,
-				616C4B1E1AFAB1BB00D2E148 /* MainInterface.storyboard */,
 				5F598F7419F0C8C700FE81A4 /* Supporting Files */,
 				616C4B1D1AFAB1BB00D2E148 /* Weather Widget-Bridging-Header.h */,
+				61628CA11B1BA2B100203295 /* MainInterface.storyboard */,
+				61628CA21B1BA2B100203295 /* TodayViewController.swift */,
 			);
 			path = "Weather Widget";
 			sourceTree = "<group>";
@@ -484,8 +487,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				61324B9B1AFABA23007DA3F3 /* Entitlements.plist in Resources */,
+				61628C9B1B1BA16700203295 /* Main.storyboard in Resources */,
 				616C4B1A1AFAB17600D2E148 /* Settings.bundle in Resources */,
-				616C4B191AFAB17600D2E148 /* Main.storyboard in Resources */,
 				61324B9D1AFABA88007DA3F3 /* Info.plist in Resources */,
 				5F598F2319F0562F00FE81A4 /* Images.xcassets in Resources */,
 			);
@@ -520,7 +523,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F2734E019F0ED1800736240 /* Images.xcassets in Resources */,
-				616C4B201AFAB1BB00D2E148 /* MainInterface.storyboard in Resources */,
+				61628CA31B1BA2B100203295 /* MainInterface.storyboard in Resources */,
 				61324B9F1AFABAF2007DA3F3 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,10 +535,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				616C4B171AFAB17600D2E148 /* AppDelegate.swift in Sources */,
-				616C4B1B1AFAB17600D2E148 /* TabBarViewController.swift in Sources */,
-				616C4B2B1AFAB4AB00D2E148 /* ViewController.swift in Sources */,
-				616C4B181AFAB17600D2E148 /* LocationViewController.swift in Sources */,
+				61628CA01B1BA16700203295 /* ViewController.swift in Sources */,
+				61628C9F1B1BA16700203295 /* TabBarViewController.swift in Sources */,
+				61628C9C1B1BA16700203295 /* AppDelegate.swift in Sources */,
+				61628C9D1B1BA16700203295 /* LocationViewController.swift in Sources */,
+				61628C9E1B1BA16700203295 /* OptionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +573,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				616C4B291AFAB49E00D2E148 /* TodayViewController.swift in Sources */,
+				61628CA41B1BA2B100203295 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

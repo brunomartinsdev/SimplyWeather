@@ -22,9 +22,7 @@ public class WeatherDataViewController: UIViewController {
     @IBOutlet public var locationLabel: UILabel!
     @IBOutlet public var temperatureMaxLabel: UILabel!
     @IBOutlet public var temperatureMinLabel: UILabel!
-
-    //@IBOutlet public var temperatureTimeMinLabel: UILabel!
-    //@IBOutlet public var temperatureTimeMaxLabel: UILabel!
+    
     
     public var weatherData: WeatherData?
     
@@ -34,11 +32,7 @@ public class WeatherDataViewController: UIViewController {
     
     public func updateData() {
         if let unwrappedWD = weatherData {
-            
-//            if UIDevice.currentDevice().userInterfaceIdiom == .Pad{
-//                
-//            }else{}
-                self.temperatureLabel.layer.cornerRadius = 85.0
+            self.temperatureLabel.layer.cornerRadius = 60
             self.temperatureLabel.layer.borderColor = UIColor.whiteColor().CGColor
             self.temperatureLabel.layer.borderWidth = 2.0
             self.windspeedLabel.text =  "\(unwrappedWD.windspeed)"
@@ -62,9 +56,7 @@ public class WeatherDataViewController: UIViewController {
                 self.temperatureLabel.text =  "\(farenheitToCelsius(unwrappedWD.temperature))"
                 self.feelslikeLabel.text =  "\(farenheitToCelsius(unwrappedWD.feelslike))"
             }
-            
-            //self.temperatureTimeMinLabel.text =  "\(unwrappedWD.temperatureMinTimeStr)"
-            //self.temperatureTimeMaxLabel.text =  "\(unwrappedWD.temperatureMaxTimeStr)"
+
             
         }
         

@@ -16,10 +16,6 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
-        
-        if let font = UIFont(name: "Avenir-Black", size: 18) {
-            doneButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-        }
         self.navigationItem.leftBarButtonItem = doneButton
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "LogCell")
         tableView.dataSource = self
@@ -77,7 +73,7 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool
     {
-      return false
+        return false
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,6 +167,8 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         dict[i] = locations
         let dataSave = NSKeyedArchiver.archivedDataWithRootObject(dict)
         defaults.setObject(dataSave, forKey:"locationList")
+        defaults.synchronize()
+        defaults.setObject(locations, forKey:"locationData")
         defaults.synchronize()
         resultSearchController.active = false
         animVIew()

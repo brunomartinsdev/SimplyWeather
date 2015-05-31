@@ -10,12 +10,12 @@ import UIKit
 import WeatherDataKit
 import CoreLocation
 
-class ViewController: WeatherDataViewController, CLLocationManagerDelegate{
+class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UIScrollViewDelegate{
     
     let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
     var latLong = "41.3887242,-82.0722262"
     let locationManager = CLLocationManager()
-    let locations  = ["name": "MyLocation", "latLong": ""]
+    let locations  = ["name": "My Location", "latLong": ""]
     var dict = Dictionary<Int, [String:String]>()
     
     @IBAction func poweredButtonPressed(sender: UIButton) {
@@ -46,20 +46,42 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate{
         }
         
         
-        let button1 = UIBarButtonItem(title: title, style: .Plain, target: self, action: Selector("optionsButtonPressed:"))
-        
-        if let font = UIFont(name: "Avenir-Black", size: 18) {
-            button1.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-        }
+        let button1 = UIBarButtonItem(title: "Options", style: .Plain, target: self, action: Selector("optionsButtonPressed:"))
+        let refresh = UIBarButtonItem(title: "refresh", style: .Plain, target: self, action: Selector("refresh"))
+        //        refresh.image = UIImage(named:"refresh")
+        //        button1.image = UIImage(named:"options")
         let button2 = UIBarButtonItem(title: "Locations", style: .Plain, target: self, action: Selector("locationsButtonPressed"))
         
         if let font = UIFont(name: "Avenir-Black", size: 18) {
             button2.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
         }
-        self.navigationItem.rightBarButtonItem = button1
+        self.navigationItem.rightBarButtonItems = [button1,refresh]
         self.navigationItem.leftBarButtonItem = button2
-        self.navigationController?.topViewController.title = "Weather CF"
-        scrollView.contentSize = CGSizeMake(0, 480)
+        self.navigationController?.topViewController.title = "Weather Lite"
+        
+    }
+    
+    func refresh(){
+        let locationData = defaults.objectForKey("locationData") as! [String:String]
+        if("\(locationData.0)" == "[latLong: , name: My Location]"){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+        else{
+            let locationDict: NSDictionary? = defaults.objectForKey("locationData") as? NSDictionary
+            if let dictionary = locationDict {
+                locationLabel.text = dictionary["name"] as? String
+                latLong = dictionary["latLong"] as! String
+            }
+            getWeatherData(latLong, completion: { (error) -> () in
+                if error == nil {
+                    self.updateData()
+                }
+            })
+            
+        }
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -102,9 +124,9 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate{
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
     }
     
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         if(defaults.objectForKey("locationData")==nil){
             defaults.setObject(locations, forKey:"locationData")
             defaults.synchronize()
@@ -114,13 +136,13 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate{
             defaults.synchronize()
         }
         
-
+        
         let locationData = defaults.objectForKey("locationData") as! [String:String]
-        if("\(locationData.0)" == "[latLong: , name: MyLocation]"){
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        if("\(locationData.0)" == "[latLong: , name: My Location]"){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
         }
         else{
             let locationDict: NSDictionary? = defaults.objectForKey("locationData") as? NSDictionary
@@ -128,30 +150,30 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate{
                 locationLabel.text = dictionary["name"] as? String
                 latLong = dictionary["latLong"] as! String
             }
-                    getWeatherData(latLong, completion: { (error) -> () in
-                        if error == nil {
-                            self.updateData()
-                        }
-                    })
-        
+            getWeatherData(latLong, completion: { (error) -> () in
+                if error == nil {
+                    self.updateData()
+                }
+            })
+            
         }
-
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad{
+            scrollView.frame = CGRectMake(scrollView.frame.origin.x,300, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-300)
+        }else{
+            scrollView.frame = CGRectMake(scrollView.frame.origin.x,250, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-250)}
         
+    }
+    override func viewDidLayoutSubviews() {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad{
+            scrollView.frame = CGRectMake(scrollView.frame.origin.x,300, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-300)
+        }else{
+            scrollView.frame = CGRectMake(scrollView.frame.origin.x,250, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-250)
+        }
     }
     
     func optionsButtonPressed(sender:UIBarButtonItem){
-        if(sender.title == "Fº"){
-            defaults.setObject(2 as Int?, forKey:"type")
-            defaults.synchronize()
-            sender.title = "Cº"
-            updateData()
-        }
-        else{
-            defaults.setObject(1 as Int?, forKey:"type")
-            defaults.synchronize()
-            sender.title = "Fº"
-            updateData()
-        }
+        
+        performSegueWithIdentifier("options", sender: self)
         
     }
     
@@ -161,24 +183,37 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate{
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if(segue.identifier == "locations"){
-            animVIew()
+            let animationDuration = 0.35
+            
+            
+            view.transform = CGAffineTransformScale(view.transform, 0.001, 0.001)
+            
+            UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+                let v = self.navigationController?.view
+                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromLeft, forView: v!
+                    , cache: false)
+            })
+            
         }
+        else{
+            animVIew()}
     }
     
     func animVIew(){
         
-                let animationDuration = 0.35
+        let animationDuration = 0.35
         
         
-                view.transform = CGAffineTransformScale(view.transform, 0.001, 0.001)
+        view.transform = CGAffineTransformScale(view.transform, 0.001, 0.001)
         
-                UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-                    UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-                    let v = self.navigationController?.view
-                    UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: v!
-                        , cache: false)
-                })
-                
-            }
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+            UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+            let v = self.navigationController?.view
+            UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: v!
+                , cache: false)
+        })
+        
+    }
 }
 
