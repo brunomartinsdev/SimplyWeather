@@ -1,6 +1,6 @@
 //
 //  TabBarViewController.swift
-//  Weather CF
+//  Weather
 //
 //  Created by Bruno Lima Martins on 5/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -15,7 +15,7 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
+        let doneButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
         self.navigationItem.leftBarButtonItem = doneButton
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "LogCell")
         tableView.dataSource = self
@@ -24,8 +24,6 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView?.hidden = true
         self.tableView.backgroundView = nil
-        self.tableView.tableHeaderView = UIView(frame: CGRectZero)
-        self.tableView.tableHeaderView?.hidden = true
         self.resultSearchController = ({
             
             let controller = UISearchController(searchResultsController: nil)
@@ -35,24 +33,25 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
             controller.searchBar.barStyle = UIBarStyle.Black
             controller.searchBar.barTintColor = UIColor.whiteColor()
             controller.searchBar.backgroundColor = UIColor.clearColor()
+            controller.navigationController?.setNavigationBarHidden(false, animated: true)
             self.tableView.tableHeaderView = controller.searchBar
             
             
             return controller
             
-            
         })()
+        resultSearchController.hidesNavigationBarDuringPresentation = false
         view.addSubview(tableView)
         fetchLog()
         
     }
     
     func doneButtonPressed(sender:UIBarButtonItem){
-        animVIew()
+        animView()
         performSegueWithIdentifier("back", sender: self)
     }
     
-    func animVIew(){
+    func animView(){
         
         let animationDuration = 0.35
         view.transform = CGAffineTransformScale(view.transform, 0.001, 0.001)
@@ -139,7 +138,7 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         
         
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.textLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        cell.textLabel?.font = UIFont(name: "Avenir-Book", size: 20)
         
         tableView.rowHeight = 35
         
@@ -152,14 +151,12 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
+ 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         NSLog(filteredTableData1[indexPath.row]+" "+filteredTableData[indexPath.row])
         let data = defaults.objectForKey("locationList") as! NSData
-        var savedArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
+        let savedArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
         let i = savedArray.count
         var dict = Dictionary<Int, [String : String]>()
         dict = savedArray as! Dictionary<Int, [String : String]>
@@ -171,7 +168,7 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         defaults.setObject(locations, forKey:"locationData")
         defaults.synchronize()
         resultSearchController.active = false
-        animVIew()
+        animView()
         performSegueWithIdentifier("back", sender: self)
     }
     

@@ -1,12 +1,13 @@
 //
 //  AppDelegate.swift
-//  Weather CF
+//  Weather
 //
 //  Created by Bruno Lima Martins on 5/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
 //
 
 import UIKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        UINavigationBar.appearance().titleTextAttributes = [ NSForegroundColorAttributeName : UIColor.whiteColor()]
+        let font = UIFont (name: "HelveticaNeue-Bold", size: 16)
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName : font!, NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
         
@@ -26,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(applicationVersion, forKey: "application_version")
         defaults.synchronize()
+
         return true
     }
     

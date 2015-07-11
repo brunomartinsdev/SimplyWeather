@@ -2,11 +2,14 @@
 //  WeatherService.swift
 //  Weather
 //
-//  Created by Joyce Echessa on 10/16/14.
+//  Based on file Created by Joyce Echessa on 10/16/14.
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 //  Changes and features to be added by Son Phan on 04/27/15
 //  Open-source on Github.com/sonphanusa
+//  Modified by Bruno Lima Martins on 07/01/15.
+//  Copyright (c) 2015 Bruno Lima. All rights reserved.
+//
 
 import Foundation
 
@@ -28,8 +31,9 @@ class WeatherService {
         session = NSURLSession(configuration: configuration)
     }
     
+    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    
     func fetchWeatherData(latLong: String, completion: WeatherDataCompletionBlock) {
-        
         let apiKey = "YOURAPIKEY"
         
         if(apiKey=="YOURAPIKEY"){
@@ -40,15 +44,16 @@ class WeatherService {
         let request = NSURLRequest(URL: baseUrl!)
         let task = session.dataTaskWithRequest(request) {[unowned self] data, response, error in
             if error == nil {
-                var jsonError: NSError?
-                if (jsonError == nil) {
-                    if let weatherDictionary = NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments, error: &jsonError) as? NSDictionary{
-                        self.defaults.setObject(weatherDictionary, forKey:"weatherDictionary")
-                        self.defaults.synchronize()
-                        let data = WeatherData(weatherDictionary: weatherDictionary)
-                        completion(data: data, error: nil)
-                    }} else {
-                    completion(data: nil, error: jsonError)
+                let jsonError: NSError?
+                var error: NSError?
+                if let weatherDictionary = NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments,error: &error) as? NSDictionary{
+                    
+                    
+                    self.defaults.setObject(weatherDictionary, forKey:"weatherDictionary")
+                    self.defaults.synchronize()
+                    let data = WeatherData(weatherDictionary: weatherDictionary)
+                    completion(data: data, error: nil)
+                    
                 }
             } else {
                 if(self.defaults.objectForKey("weatherDictionary")==nil){
@@ -66,7 +71,5 @@ class WeatherService {
         task.resume()
     }
     
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+
 }
-
-

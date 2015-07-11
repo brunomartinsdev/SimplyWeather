@@ -2,11 +2,14 @@
 //  WeatherData.swift
 //  Weather
 //
-//  Created by Joyce Echessa on 10/16/14.
+//  Based on file Created by Joyce Echessa on 10/16/14.
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 //  Changes and features to be added by Son Phan on 04/27/15
 //  Open-source on Github.com/sonphanusa
+//  Modified by Bruno Lima Martins on 07/01/15.
+//  Copyright (c) 2015 Bruno Lima. All rights reserved.
+//
 
 import Foundation
 
@@ -24,6 +27,7 @@ public class WeatherData: NSObject {
     
     public init(weatherDictionary: NSDictionary) {
         let weather = weatherDictionary["currently"] as! NSDictionary
+        
         let weatherdaily = weatherDictionary["daily"] as! NSDictionary
         
         temperature = weather["temperature"] as! Int
@@ -52,19 +56,15 @@ public class WeatherData: NSObject {
         }
         temperatureMin = tMin
         temperatureMax = tMax
-        
-        
         let time = weather["time"] as! Int
         let timeInterval = NSTimeInterval(time)
         let date = NSDate(timeIntervalSince1970: timeInterval)
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeStyle = .ShortStyle
         currentTime = dateFormatter.stringFromDate(date)
-
+        
     }
-    
-    
-    
+
 }
 
 

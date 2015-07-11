@@ -1,6 +1,6 @@
 //
 //  LocationViewController.swift
-//  Weather CF
+//  Weather
 //
 //  Created by Bruno Lima Martins on 5/6/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -18,6 +18,8 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
+        self.navigationController?.navigationBar.barTintColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
+        self.navigationController?.navigationBar.translucent = false
         let plusButton = UIBarButtonItem(title: "+", style: .Plain, target: self, action: Selector("seguex"))
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "LogCell")
         tableView.dataSource = self
@@ -103,7 +105,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         var dict = Dictionary<Int, [String:String]>()
         dict = savedArray as! Dictionary<Int, [String : String]>
-        println(dict[indexPath.row]?.description)
+        print(dict[indexPath.row]?.description)
         if(dict[indexPath.row]?.description=="[latLong: , name: My Location]"){
             return false
         }else{
@@ -120,7 +122,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         let cellText = text?.componentsSeparatedByString("name:")[1]
         cell.textLabel?.text = cellText!.stringByReplacingOccurrencesOfString("]", withString: "")
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.textLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        cell.textLabel?.font = UIFont(name: "Avenir-Book", size: 20)
         tableView.rowHeight = 35
         let locationData = defaults.objectForKey("locationData") as! [String:String]
         if(dict[indexPath.row]!==locationData){
@@ -155,7 +157,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         if(editingStyle == .Delete ) {
             
             let data = defaults.objectForKey("locationList") as! NSData
-            var savedArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
+            let savedArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
             var dict = Dictionary<Int, [String : String]>()
             dict = savedArray as! Dictionary<Int, [String : String]>
             var dict2 = Dictionary<Int, [String : String]>()
