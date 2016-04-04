@@ -1,13 +1,12 @@
 //
 //  AppDelegate.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 5/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
 //
 
 import UIKit
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
         
-        let appInfo = NSBundle.mainBundle().infoDictionary as! Dictionary<String,AnyObject>
-        let shortVersionString = appInfo["CFBundleShortVersionString"] as! String
-        let bundleVersion      = appInfo["CFBundleVersion"] as! String
+        let appInfo = NSBundle.mainBundle().infoDictionary// as! Dictionary<String,AnyObject>
+        let shortVersionString = appInfo!["CFBundleShortVersionString"] as! String
+        let bundleVersion      = appInfo!["CFBundleVersion"] as! String
         let applicationVersion = shortVersionString + " (" + bundleVersion + ")"
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(applicationVersion, forKey: "application_version")
@@ -53,8 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        UIApplication.sharedApplication().openURL(NSURL(string:"http://forecast.io/")!)
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+//        let sanitizedURL = GSDDeepLink.handleDeepLink(url)
+//        UIApplication.sharedApplication().openURL(NSURL(string:"http://forecast.io/")!)
         return true
         
     }

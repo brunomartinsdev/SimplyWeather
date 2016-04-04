@@ -1,6 +1,6 @@
 //
 //  StartViewController.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 6/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -11,7 +11,6 @@ import UIKit
 
 class StartViewController: UIViewController{
     var pageControl = UIPageControl()
-    let scrollView = UIScrollView()    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,40 +22,110 @@ class StartViewController: UIViewController{
         pageControl.currentPage = 0
         scrollView.addSubview(pageControl)
         
-
-        let optionsButton = UIBarButtonItem(title: "Options", style: .Plain, target: self, action: Selector("optionsButtonPressed:"))
+        let optionsButton = UIButton(type:UIButtonType.Custom)
+        optionsButton.frame = CGRectMake(0, 0, w, h)
+        optionsButton.layer.borderWidth = 0.0
+        optionsButton.layer.borderColor = UIColor.whiteColor().CGColor
+        optionsButton.layer.masksToBounds = false
+        optionsButton.layer.cornerRadius = w/2
+        optionsButton.setImage(UIImage(named:"options")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        optionsButton.tintColor = UIColor.whiteColor()
+        optionsButton.addTarget(self, action: #selector(StartViewController.optionsButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let buttonRight =  UIBarButtonItem(customView: optionsButton)
         
-
-        let refreshButton = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: Selector("refreshNow:"))
         
-        let locationButton = UIBarButtonItem(title: "Locations", style: .Plain, target: self, action: Selector("locationsButtonPressed"))
-       
+        let refreshButton = UIButton(type:UIButtonType.Custom)
+        refreshButton.frame = CGRectMake(0, 0, w, h)
+        refreshButton.layer.borderWidth = 0.0
+        refreshButton.layer.borderColor = UIColor.whiteColor().CGColor
+        refreshButton.layer.masksToBounds = false
+        refreshButton.layer.cornerRadius = w/2
+        refreshButton.tintColor = UIColor.whiteColor()
+        refreshButton.setImage(UIImage(named:"refresh")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        refreshButton.addTarget(self, action: #selector(StartViewController.refreshNow(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let refresh = UIBarButtonItem(customView: refreshButton)
+        
+        
+        let locationButton = UIButton(type:UIButtonType.Custom)
+        locationButton.frame = CGRectMake(0, 0, w, h)
+        locationButton.layer.borderWidth = 1.0
+        locationButton.layer.borderColor = UIColor.whiteColor().CGColor
+        locationButton.layer.masksToBounds = false
+        locationButton.layer.cornerRadius = w/2
+        locationButton.tintColor = UIColor.whiteColor()
+        locationButton.setImage(UIImage(named:"Locations")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        locationButton.addTarget(self, action: #selector(StartViewController.locationsButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let buttonLeft = UIBarButtonItem()
+        buttonLeft.title = "Locations"
+        buttonLeft.target = self
+        buttonLeft.action = #selector(StartViewController.locationsButtonPressed)
+        
         if let font = UIFont(name: "Avenir-Book", size: 18) {
-            locationButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-            optionsButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
-            optionsButton.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
+            buttonLeft.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
         }
         
-        self.navigationItem.rightBarButtonItems = [refreshButton,optionsButton]
-        self.navigationItem.leftBarButtonItem = locationButton
+        self.navigationItem.rightBarButtonItems = [buttonRight,refresh]
+        self.navigationItem.leftBarButtonItem = buttonLeft
         view.backgroundColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
         gesture.direction = UISwipeGestureRecognizerDirection.Left
-        gesture.addTarget(self, action: "leftGesture")
+        gesture.addTarget(self, action: #selector(StartViewController.gestureActived))
         scrollView.addGestureRecognizer(gesture)
         view.addSubview(scrollView)
-
+        delay(1.0) {
+            self.refreshNow(refreshButton)
+        }
     }
     
     let gesture = UISwipeGestureRecognizer()
     var page = 0
     
     func refreshNow(sender:UIButton){
-
-        NSNotificationCenter.defaultCenter().postNotificationName("refreshWeather", object: nil)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(1 as Int?, forKey:"refresh")
+        defaults.synchronize()
+        rotate(sender)
+        NSNotificationCenter.defaultCenter().postNotificationName("updateFetchLogNotificationIdentifier", object: nil)
     }
     
-       
-    func leftGesture(){
+    func rotate(sender:UIButton){
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        sender.transform = CGAffineTransformMakeRotation(0)
+        let animationDuration = 1.0
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+            
+            sender.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+        })
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+            
+            sender.transform = CGAffineTransformMakeRotation(CGFloat(0))
+            }
+            ,
+            completion: {finished in  if(defaults.objectForKey("refresh") as! Int==1){
+                self.rotate(sender)
+                }
+                
+                
+            }
+        )
+        
+        
+    }
+    
+    func delay(delay:Double, closure:()->()) {
+        //        from:http://stackoverflow.com/questions/24034544/dispatch-after-gcd-in-swift/24318861#24318861
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    
+    func gestureActived(){
         if(page==0){
             
             gesture.direction = UISwipeGestureRecognizerDirection.Right
@@ -93,10 +162,12 @@ class StartViewController: UIViewController{
         super.didReceiveMemoryWarning()
         
     }
-
+    var i  = 0
     
+    
+    var scrollView = UIScrollView()
     override func viewDidLayoutSubviews() {
-        let navHeight:CGFloat = 0
+        
         scrollView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad{
             pageControl.frame = CGRectMake(0, 300-0, view.bounds.size.width, 5)

@@ -2,14 +2,11 @@
 //  WeatherDataViewController.swift
 //  Weather
 //
-//  Based on file Created by Joyce Echessa on 10/16/14.
+//  Created by Joyce Echessa on 10/16/14.
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 //  Changes and features to be added by Son Phan on 04/27/15
 //  Open-source on Github.com/sonphanusa
-//  Modified by Bruno Lima Martins on 07/01/15.
-//  Copyright (c) 2015 Bruno Lima. All rights reserved.
-//
 
 import UIKit
 
@@ -43,7 +40,7 @@ public class WeatherDataViewController: UIViewController {
         
         
     }
-    let defaultsx: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    let defaultsx = NSUserDefaults.standardUserDefaults()
     func pasteData(unwrappedWD:WeatherData){
         self.temperatureLabel.layer.cornerRadius = 60
         self.temperatureLabel.layer.borderColor = UIColor.whiteColor().CGColor
@@ -53,7 +50,7 @@ public class WeatherDataViewController: UIViewController {
         self.timeLabel.text =  "\(unwrappedWD.currentTime)"
         self.humidityLabel.text =  "\(unwrappedWD.humidity)"
         self.precipitationLabel.text =  "\(unwrappedWD.precipProbability)"
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+        let defaults = NSUserDefaults.standardUserDefaults()
         if(defaults.objectForKey("type")==nil){
             defaults.setObject(1 as Int?, forKey:"type")
             defaults.synchronize()

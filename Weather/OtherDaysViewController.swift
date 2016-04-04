@@ -1,6 +1,6 @@
 //
 //  OtherDaysViewController.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 6/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -38,23 +38,23 @@ class OtherDaysViewController: UIViewController{
         
         for record in labels{
             record.frame = CGRectMake(origin,CGFloat(CGFloat(i*50)),150, 30)
-            i++
+            i += 1
         }
         i = 1
         for record in labels1{
             record.frame = CGRectMake(50+origin,CGFloat(CGFloat(i*50)),viewx.frame.width-viewx.frame.width/5, 30)
-            i++
+            i += 1
         }
         i = 1
         for record in labels2{
             record.frame = CGRectMake(180+origin,CGFloat(CGFloat(i*50)),viewx.frame.width-viewx.frame.width/5, 30)
-            i++
+            i += 1
         }
         i = 1
         
         for record in labels3{
             record.frame = CGRectMake(230+origin,CGFloat(CGFloat(i*50)),viewx.frame.width-viewx.frame.width/5, 30)
-            i++
+            i += 1
         }
     }
     
@@ -158,16 +158,16 @@ class OtherDaysViewController: UIViewController{
     }
     
     
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    let defaults = NSUserDefaults.standardUserDefaults()
     func nextDay(){
         if(self.defaults.objectForKey("weatherDictionary")==nil){
             
         }
         else{
             let weatherDictionary = self.defaults.objectForKey("weatherDictionary") as! NSDictionary
-            let data = WeatherData(weatherDictionary: weatherDictionary)
+            _ = WeatherData(weatherDictionary: weatherDictionary)
             let weatherdaily = weatherDictionary["daily"] as! NSDictionary
-            var tMin = 0
+            _ = 0
             var i = 0
             if let temp = weatherdaily["data"] as? NSArray{
                 
@@ -179,7 +179,7 @@ class OtherDaysViewController: UIViewController{
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
                         dateFormatter.dateStyle = .ShortStyle
-                        let nextDay = NSDate().dateByAddingTimeInterval(60*60*24*Double(i))
+                        _ = NSDate().dateByAddingTimeInterval(60*60*24*Double(i))
                         var tempMinMax = ""
                         if(defaults.objectForKey("type")==nil){
                             defaults.setObject(1 as Int?, forKey:"type")
@@ -199,7 +199,7 @@ class OtherDaysViewController: UIViewController{
                         let wind = String(record.objectForKey("windSpeed") as! Int)
                         dateFormatter.dateFormat = "EEEE"
                         let titlex = dateFormatter.stringFromDate(date)
-                        let endIndex = advance(titlex.startIndex, 3)
+                        let endIndex = titlex.startIndex.advancedBy(3)
                         var text = titlex.substringToIndex(endIndex)
                         text += "   "
                         text += summaryx[0]
@@ -212,20 +212,50 @@ class OtherDaysViewController: UIViewController{
                         text += " "
                         text += wind
                         text += " mph"
-                        let length = count(titlex.substringToIndex(endIndex))
+//                        let length = (titlex.substringToIndex(endIndex).characters.count)
                         let texto:NSMutableAttributedString = NSMutableAttributedString(string:text)
                         texto.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 14.0)!, range: NSRange(location: 0,length: 3))
-                        texto.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 20.0)!, range: NSRange(location: 4,length: count(text)-4))
+                        texto.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 20.0)!, range: NSRange(location: 4,length: String(text).characters.count-4))
                         labels[i].text = titlex.substringToIndex(endIndex)
                         labels1[i].text = summaryx[0]+" "+summaryx[1]
                         labels2[i].text = tempMinMax
                         labels3[i].text = wind+" mph"
                         labels[i].textAlignment = .Left
                     }
-                    i++
+                    i += 1
                 }
             }
             
         }
     }
 }
+
+
+
+//viewx.addSubview(dayLabel1)
+//viewx.addSubview(dayLabel2)
+//viewx.addSubview(dayLabel3)
+//viewx.addSubview(dayLabel4)
+//viewx.addSubview(dayLabel5)
+//viewx.addSubview(dayLabel6)
+//
+//viewx.addSubview(dayLabel11)
+//viewx.addSubview(dayLabel21)
+//viewx.addSubview(dayLabel31)
+//viewx.addSubview(dayLabel41)
+//viewx.addSubview(dayLabel51)
+//viewx.addSubview(dayLabel61)
+//
+//viewx.addSubview(dayLabel12)
+//viewx.addSubview(dayLabel22)
+//viewx.addSubview(dayLabel32)
+//viewx.addSubview(dayLabel42)
+//viewx.addSubview(dayLabel52)
+//viewx.addSubview(dayLabel62)
+//
+//viewx.addSubview(dayLabel13)
+//viewx.addSubview(dayLabel23)
+//viewx.addSubview(dayLabel33)
+//viewx.addSubview(dayLabel43)
+//viewx.addSubview(dayLabel53)
+//viewx.addSubview(dayLabel63)

@@ -1,6 +1,6 @@
 //
 //  OptionViewController.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 5/19/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -13,12 +13,12 @@ import UIKit
 class OptionViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.topViewController.title = "Options"
+        self.navigationController?.topViewController!.title = "Options"
         
         self.navigationController?.navigationBar.barTintColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
         self.navigationController?.navigationBar.translucent = false
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
+        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: #selector(OptionViewController.doneButtonPressed(_:)))
         
         self.navigationItem.leftBarButtonItem = doneButton
         if(defaults.objectForKey("type")==nil){
@@ -31,21 +31,37 @@ class OptionViewController: UIViewController{
         }else{
             segmentedControl.selectedSegmentIndex = 0
         }
-        segmentedControl.addTarget(self, action: "changeFormat:", forControlEvents: .ValueChanged)
-
-
+        segmentedControl.addTarget(self, action: #selector(OptionViewController.changeFormat(_:)), forControlEvents: .ValueChanged)
+        twitterButton.addTarget(self, action: #selector(OptionViewController.twitterLinkPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let attributedString = NSMutableAttributedString(string: " ")
+        let textAttachment = NSTextAttachment()
+        textAttachment.image = UIImage(named:"twitter")
+        let oldWidth = textAttachment.image!.size.width
+        let scaleFactor = oldWidth / (twitterButton.frame.size.width - 10)
+        textAttachment.image = UIImage(CGImage:textAttachment.image!.CGImage!,scale:scaleFactor, orientation:UIImageOrientation.Up)
+        let attrStringWithImage = NSAttributedString(attachment:textAttachment)
+        
+        attributedString.replaceCharactersInRange(NSMakeRange(0, 1), withAttributedString:attrStringWithImage)
+        
+        twitterButton.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        acknowledgementsButton.setTitle("Acknowledgements", forState: UIControlState.Normal)
+//        acknowledgementsButton.addTarget(self, action: Selector("acnButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+        acknowledgementsButton.backgroundColor = UIColor.whiteColor()
+        acknowledgementsButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        view.addSubview(acknowledgementsButton)
         
     }
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    let acknowledgementsButton = UIButton()
     @IBAction func linkPressed(sender: UIButton) {
-            UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/brunolmartins/SimplyWeather")!)
+         UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/sonphanusa/SimplyWeather")!)
+//        UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/brunomartinsdev/SimplyWeather")!)
     }
     
     
@@ -76,7 +92,6 @@ class OptionViewController: UIViewController{
     
     
     
-    
     func animVIew(){
         
         let animationDuration = 0.35
@@ -95,8 +110,7 @@ class OptionViewController: UIViewController{
     
     
     @IBAction func devbPressed(sender: UIButton) {
-        UIApplication.sharedApplication().openURL(NSURL(string:"https://bdevapps.com/apps")!)
-
+        UIApplication.sharedApplication().openURL(NSURL(string:"https://bdevapps.com/")!)
         
     }
     
@@ -108,8 +122,10 @@ class OptionViewController: UIViewController{
     }
     
     @IBAction func devsPressed(sender: UIButton) {
-                UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/sonphanusa")!)
+        UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/sonphanusa")!)
     }
     
-
+    override func viewDidLayoutSubviews() {
+        acknowledgementsButton.hidden = true
+    }
 }

@@ -2,14 +2,11 @@
 //  WeatherData.swift
 //  Weather
 //
-//  Based on file Created by Joyce Echessa on 10/16/14.
+//  Created by Joyce Echessa on 10/16/14.
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 //  Changes and features to be added by Son Phan on 04/27/15
 //  Open-source on Github.com/sonphanusa
-//  Modified by Bruno Lima Martins on 07/01/15.
-//  Copyright (c) 2015 Bruno Lima. All rights reserved.
-//
 
 import Foundation
 
@@ -38,6 +35,9 @@ public class WeatherData: NSObject {
         windspeed = weather["windSpeed"] as! Int
         var tMin = 0
         var tMax = 0
+
+        
+        
         if let temp = weatherdaily["data"] as? NSArray{
             for record in temp{
                 
@@ -64,7 +64,9 @@ public class WeatherData: NSObject {
         currentTime = dateFormatter.stringFromDate(date)
         
     }
+    
 
+    
 }
 
 

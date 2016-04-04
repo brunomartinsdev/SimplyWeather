@@ -1,6 +1,6 @@
 //
 //  TabBarViewController.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 5/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -10,12 +10,15 @@ import UIKit
 import CoreLocation
 
 class TabBarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UISearchResultsUpdating {
+    
     let tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    //    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let doneButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
+        let doneButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(TabBarViewController.doneButtonPressed(_:)))
         self.navigationItem.leftBarButtonItem = doneButton
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "LogCell")
         tableView.dataSource = self
@@ -100,15 +103,22 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         array1.removeAll(keepCapacity: false)
         array2.removeAll(keepCapacity: false)
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(searchController.searchBar.text, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
-            if let placemark = placemarks?[0] as? CLPlacemark {
-                if let loc = placemark.locality{
-                    array2.append(placemark.locality+" "+placemark.administrativeArea)
-                    array1.append(String(stringInterpolationSegment: placemark.location.coordinate.latitude)+","+String(stringInterpolationSegment: placemark.location.coordinate.longitude))
-                }}
-            self.filteredTableData = array2 as [String]
-            self.filteredTableData1 = array1 as [String]
-            self.tableView.reloadData()
+        
+        geocoder.geocodeAddressString(searchController.searchBar.text!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+            if(error != nil) {
+                
+                print("Error", error)
+            } else{
+                if let placemark = placemarks![0] as? CLPlacemark {
+                    if let loc = placemark.locality{
+                        array2.append(placemark.locality!+" "+placemark.administrativeArea!)
+                        array1.append(String(stringInterpolationSegment: placemark.location!.coordinate.latitude)+","+String(stringInterpolationSegment: placemark.location!.coordinate.longitude))
+                    }
+                }
+                
+                self.filteredTableData = array2 as [String]
+                self.filteredTableData1 = array1 as [String]
+                self.tableView.reloadData()}
         })
         self.tableView.reloadData()
     }
@@ -127,22 +137,22 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("LogCell") as! UITableViewCell
-        cell.textLabel?.textAlignment = .Center
+        let cell = tableView.dequeueReusableCellWithIdentifier("LogCell") as UITableViewCell?
+        cell!.textLabel?.textAlignment = .Center
         if (self.resultSearchController.active) {
-            cell.textLabel?.text = filteredTableData[indexPath.row]
+            cell!.textLabel?.text = filteredTableData[indexPath.row]
             
         }
         else{
-            cell.textLabel?.text =  self.diction[indexPath.row]}
+            cell!.textLabel?.text =  self.diction[indexPath.row]}
         
         
-        cell.textLabel?.textColor = UIColor.blackColor()
-        cell.textLabel?.font = UIFont(name: "Avenir-Book", size: 20)
+        cell!.textLabel?.textColor = UIColor.blackColor()
+        cell!.textLabel?.font = UIFont(name: "Avenir-Book", size: 20)
         
         tableView.rowHeight = 35
         
-        return cell
+        return cell!
         
     }
     
@@ -151,7 +161,7 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
- 
+    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         NSLog(filteredTableData1[indexPath.row]+" "+filteredTableData[indexPath.row])
@@ -172,4 +182,4 @@ class TabBarViewController: UIViewController, UITableViewDataSource, UITableView
         performSegueWithIdentifier("back", sender: self)
     }
     
-}
+} 

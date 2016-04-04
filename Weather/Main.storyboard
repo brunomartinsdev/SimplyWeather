@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8hv-Yt-rsm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8hv-Yt-rsm">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Start View Controller-->
         <scene sceneID="sqg-jm-uvd">
             <objects>
-                <viewController id="ciX-gs-mex" customClass="StartViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ciX-gs-mex" customClass="StartViewController" customModule="Weather_CF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qaH-W3-UZE"/>
                         <viewControllerLayoutGuide type="bottom" id="bIT-j7-eZd"/>
@@ -15,6 +16,7 @@
                     <view key="view" contentMode="scaleToFill" id="OJb-JJ-fZq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ARd-eI-9Lg"/>
@@ -30,7 +32,7 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController restorationIdentifier="ViewController" storyboardIdentifier="ViewController" id="vXZ-lx-hvc" customClass="ViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="ViewController" storyboardIdentifier="ViewController" id="vXZ-lx-hvc" customClass="ViewController" customModule="Weather_CF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -44,6 +46,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUMMARY:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xM-bV-n8h">
                                         <rect key="frame" x="171" y="330" width="90" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="gis-Hf-mUX">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="24"/>
@@ -68,6 +71,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HUMIDITY:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vo9-xF-E0q">
                                         <rect key="frame" x="171" y="366" width="71" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="8iN-vR-vBx"/>
                                             <constraint firstAttribute="height" constant="17" id="I1n-f8-1Vu">
@@ -99,6 +103,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRECIPITATION:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QH-PS-J6a">
                                         <rect key="frame" x="171" y="402" width="108" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="108" id="02g-U0-sMj"/>
                                             <constraint firstAttribute="height" constant="24" id="1xy-5H-2M1"/>
@@ -130,6 +135,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPDATED:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-3m-cOe">
                                         <rect key="frame" x="171" y="477" width="108" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="69" id="BzC-Hc-DkK"/>
                                             <constraint firstAttribute="height" constant="17" id="JKW-h5-mHp">
@@ -161,6 +167,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WIND SPEED:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUl-5E-d50">
                                         <rect key="frame" x="171" y="438" width="92" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="92" id="BRA-89-s9m"/>
                                             <constraint firstAttribute="height" constant="17" id="xdo-8Y-g91">
@@ -192,6 +199,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FEELS LIKE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaL-6b-mHa">
                                         <rect key="frame" x="171" y="517" width="108" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="108" id="8aj-Cy-noG"/>
                                             <constraint firstAttribute="height" constant="24" id="vZg-ru-S9P"/>
@@ -223,6 +231,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEMP:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1b-17-vE4">
                                         <rect key="frame" x="171" y="517" width="108" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="F0S-RY-ct6">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="24"/>
@@ -247,6 +256,7 @@
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAX TEMP:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4s-RI-iYJ">
                                         <rect key="frame" x="171" y="517" width="108" height="17"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="108" id="Yau-cU-37k"/>
                                             <constraint firstAttribute="height" constant="17" id="jOr-uD-eP3">
@@ -278,6 +288,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mostly Cloudy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RgK-BM-Mtc">
                                         <rect key="frame" x="305" y="324" width="122" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="vpf-BF-Fki"/>
                                             <constraint firstAttribute="width" constant="122" id="ynE-FB-Q62">
@@ -302,6 +313,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.65" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIY-IO-inA">
                                         <rect key="frame" x="305" y="360" width="39" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="L0G-bP-BUS"/>
                                             <constraint firstAttribute="width" constant="39" id="eNY-8K-baH">
@@ -326,6 +338,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZK-Hi-ky6">
                                         <rect key="frame" x="305" y="396" width="39" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="2AL-76-d5J"/>
                                             <constraint firstAttribute="width" constant="39" id="zQ7-QC-TgZ">
@@ -350,6 +363,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:00 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AR7-YT-cOv">
                                         <rect key="frame" x="305" y="471" width="85" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="RAt-Z4-Noy"/>
                                             <constraint firstAttribute="width" constant="85" id="yLe-VB-8kt"/>
@@ -372,6 +386,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojh-jv-TDn">
                                         <rect key="frame" x="305" y="432" width="39" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="gfL-iD-orP"/>
                                             <constraint firstAttribute="width" constant="39" id="zGL-WT-JWf">
@@ -396,6 +411,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csQ-dy-Gon">
                                         <rect key="frame" x="305" y="511" width="23" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="4fI-Bg-hhA"/>
                                             <constraint firstAttribute="height" constant="24" id="fn5-rJ-a80"/>
@@ -427,6 +443,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Jd-h2-t7l">
                                         <rect key="frame" x="305" y="511" width="23" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="5Od-DL-3cZ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="100"/>
@@ -460,6 +477,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECa-s1-4JT">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="OjT-Sf-YVz"/>
                                             <constraint firstAttribute="height" constant="30" id="iRf-vW-FPJ"/>
@@ -494,6 +512,7 @@
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsQ-pe-0LC">
                                         <rect key="frame" x="305" y="511" width="23" height="24"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Y9C-qR-Gnl"/>
                                             <constraint firstAttribute="height" constant="24" id="yeH-cY-sWs"/>
@@ -515,6 +534,7 @@
                                         </variation>
                                     </label>
                                 </subviews>
+                                <animations/>
                                 <constraints>
                                     <constraint firstItem="BZK-Hi-ky6" firstAttribute="leading" secondItem="IIY-IO-inA" secondAttribute="leading" id="0IX-Kv-6xR"/>
                                     <constraint firstItem="M1b-17-vE4" firstAttribute="top" secondItem="jaL-6b-mHa" secondAttribute="bottom" constant="11" id="1eu-IT-vZc">
@@ -899,6 +919,7 @@
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Elyria, OH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7b4-Kz-nlS">
                                 <rect key="frame" x="139" y="40" width="315" height="24"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="315" id="Z05-Vf-Ce8"/>
                                 </constraints>
@@ -918,6 +939,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXV-IN-wxH">
                                 <rect key="frame" x="175" y="72" width="251" height="172"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="172" id="0E3-x0-jlZ">
                                         <variation key="heightClass=regular-widthClass=compact" constant="120"/>
@@ -953,6 +975,7 @@
                                 </variation>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.29019607843137252" green="0.66666666666666663" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="CXV-IN-wxH" firstAttribute="centerX" secondItem="4af-iW-gU9" secondAttribute="centerX" id="250-dY-fdF"/>
@@ -1052,7 +1075,7 @@
         <!--Other Days View Controller-->
         <scene sceneID="apT-I5-k1f">
             <objects>
-                <viewController restorationIdentifier="OtherDaysViewController" storyboardIdentifier="OtherDaysViewController" id="JUg-WG-KBQ" customClass="OtherDaysViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="OtherDaysViewController" storyboardIdentifier="OtherDaysViewController" id="JUg-WG-KBQ" customClass="OtherDaysViewController" customModule="Weather_CF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zzW-U8-Pfw"/>
                         <viewControllerLayoutGuide type="bottom" id="Km8-qB-9sU"/>
@@ -1060,6 +1083,7 @@
                     <view key="view" contentMode="scaleToFill" id="btD-7P-lqp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -1070,7 +1094,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="h49-E4-sRJ">
             <objects>
-                <viewController id="0qG-x1-TeG" customClass="TabBarViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0qG-x1-TeG" customClass="TabBarViewController" customModule="Weather_CF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OaR-gx-8nv"/>
                         <viewControllerLayoutGuide type="bottom" id="koJ-fh-cGY"/>
@@ -1078,6 +1102,7 @@
                     <view key="view" contentMode="scaleToFill" id="XCP-yk-byd">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
@@ -1096,6 +1121,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jNS-uk-XIW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1109,7 +1135,7 @@
         <!--Location View Controller-->
         <scene sceneID="hA6-sd-ljo">
             <objects>
-                <viewController storyboardIdentifier="LocationViewController" id="v3T-1c-OX5" customClass="LocationViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationViewController" id="v3T-1c-OX5" customClass="LocationViewController" customModule="Weather_CF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h8J-2W-CRb"/>
                         <viewControllerLayoutGuide type="bottom" id="qn4-I0-qLc"/>
@@ -1117,6 +1143,7 @@
                     <view key="view" contentMode="scaleToFill" id="6bu-KH-EGK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
@@ -1131,7 +1158,7 @@
         <!--Option View Controller-->
         <scene sceneID="0Em-E1-RUc">
             <objects>
-                <viewController restorationIdentifier="OptionViewController" storyboardIdentifier="OptionViewController" id="L2Y-Ca-am0" customClass="OptionViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="OptionViewController" storyboardIdentifier="OptionViewController" id="L2Y-Ca-am0" customClass="OptionViewController" customModule="Weather_CF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eJg-4d-DpT"/>
                         <viewControllerLayoutGuide type="bottom" id="Y2p-8H-SAi"/>
@@ -1145,6 +1172,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Format" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMv-ky-UCg">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="PKg-Sy-lhV"/>
                                             <constraint firstAttribute="height" constant="21" id="jI6-oR-r0x"/>
@@ -1177,6 +1205,7 @@
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nsY-Rq-vF0">
                                         <rect key="frame" x="-61" y="-14" width="123" height="29"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="ZsD-vB-BBu"/>
                                             <constraint firstAttribute="height" constant="28" id="oGt-7Y-fhT"/>
@@ -1209,6 +1238,7 @@
                                         </variation>
                                     </segmentedControl>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="RMv-ky-UCg" firstAttribute="leading" secondItem="Dik-nx-Iq9" secondAttribute="leading" constant="23" id="8VN-4f-uDP"/>
@@ -1276,6 +1306,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDC-7G-rL2">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Qto-WF-w4D">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="21"/>
@@ -1315,6 +1346,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We support open-source apps. Fork us at " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGd-s9-hWD">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="324" id="44L-fr-EPB"/>
                                             <constraint firstAttribute="height" constant="21" id="EPR-Ik-rsW"/>
@@ -1346,6 +1378,7 @@
                                         </variation>
                                     </label>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="BDC-7G-rL2" firstAttribute="leading" secondItem="aGd-s9-hWD" secondAttribute="trailing" constant="-5" id="5nO-KM-7wW"/>
@@ -1419,6 +1452,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJh-f4-fjA">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="144" id="29N-KJ-lyP">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="86"/>
@@ -1456,6 +1490,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXM-Rw-KCm">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="BAS-Xy-4wK"/>
                                             <constraint firstAttribute="width" constant="97" id="BZv-rb-bDD"/>
@@ -1491,6 +1526,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTK-x2-TQM">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="9mc-vv-Hp8"/>
                                             <constraint firstAttribute="height" constant="30" id="Ca3-2j-O2W"/>
@@ -1527,6 +1563,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed by:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjQ-UV-SGW">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="ET9-P7-p7A"/>
                                             <constraint firstAttribute="width" constant="163" id="Re7-Hv-trr"/>
@@ -1558,6 +1595,7 @@
                                         </variation>
                                     </label>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="NjQ-UV-SGW" firstAttribute="top" secondItem="nXM-Rw-KCm" secondAttribute="bottom" constant="-21" id="6qU-Mh-beJ"/>
@@ -1659,6 +1697,7 @@
                                 </variation>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Dik-nx-Iq9" secondAttribute="width" id="87u-z2-cJT"/>
@@ -1764,7 +1803,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uFp-y4-gVY"/>
+        <segue reference="UCn-H9-atk"/>
         <segue reference="As0-ue-WNQ"/>
     </inferredMetricsTieBreakers>
 </document>

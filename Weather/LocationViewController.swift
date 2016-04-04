@@ -1,6 +1,6 @@
 //
 //  LocationViewController.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 5/6/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -13,14 +13,15 @@ import CoreLocation
 class LocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
     
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    //    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    let defaults = NSUserDefaults.standardUserDefaults()
     var savedArray = NSDictionary()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: Selector("doneButtonPressed:"))
+        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: #selector(LocationViewController.doneButtonPressed(_:)))
         self.navigationController?.navigationBar.barTintColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
         self.navigationController?.navigationBar.translucent = false
-        let plusButton = UIBarButtonItem(title: "+", style: .Plain, target: self, action: Selector("seguex"))
+        let plusButton = UIBarButtonItem(title: "+", style: .Plain, target: self, action: #selector(LocationViewController.seguex))
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "LogCell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -29,7 +30,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.hidesBackButton = true
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView?.hidden = true
-        self.navigationController?.topViewController.title = "Locations"
+        self.navigationController?.topViewController!.title = "Locations"
         self.tableView.reloadData()
         view.addSubview(tableView)
         
@@ -114,24 +115,24 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("LogCell") as! UITableViewCell
-        cell.textLabel?.textAlignment = .Center
+        let cell = tableView.dequeueReusableCellWithIdentifier("LogCell")
+        cell!.textLabel?.textAlignment = .Center
         var dict = Dictionary<Int, [String:String]>()
         dict = savedArray as! Dictionary<Int, [String : String]>
         let text = dict[indexPath.row]?.description
-        let cellText = text?.componentsSeparatedByString("name:")[1]
-        cell.textLabel?.text = cellText!.stringByReplacingOccurrencesOfString("]", withString: "")
-        cell.textLabel?.textColor = UIColor.blackColor()
-        cell.textLabel?.font = UIFont(name: "Avenir-Book", size: 20)
+        let cellText = text?.componentsSeparatedByString("name\":")
+        cell!.textLabel?.text = cellText?.last!.stringByReplacingOccurrencesOfString("]", withString: "").stringByReplacingOccurrencesOfString("\"", withString: "")
+        cell!.textLabel?.textColor = UIColor.blackColor()
+        cell!.textLabel?.font = UIFont(name: "Avenir-Book", size: 20)
         tableView.rowHeight = 35
         let locationData = defaults.objectForKey("locationData") as! [String:String]
         if(dict[indexPath.row]!==locationData){
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
         }else{
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell!.accessoryType = UITableViewCellAccessoryType.None
         }
         
-        return cell
+        return cell!
         
     }
     
@@ -163,11 +164,11 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
             var dict2 = Dictionary<Int, [String : String]>()
             dict2 = dict
             var x = 0
-            for record in dict{
+            for _ in dict{
                 if(x>=indexPath.row){
                     dict[x] = dict2[x+1]
                 }
-                x++
+                x += 1
             }
             
             let dataSave = NSKeyedArchiver.archivedDataWithRootObject(dict)
@@ -182,7 +183,7 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         if(defaults.objectForKey("locationList")==nil){
             let locations  = ["name": "My Location", "latLong": ""]
             var dict = Dictionary<Int, [String:String]>()
-            dict[0] = locations.0
+            dict[0] = locations//.first
             let dataSave = NSKeyedArchiver.archivedDataWithRootObject(dict)
             defaults.setObject(dataSave, forKey:"locationList")
             defaults.synchronize()
@@ -193,4 +194,4 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
-}
+} 

@@ -2,14 +2,11 @@
 //  WeatherService.swift
 //  Weather
 //
-//  Based on file Created by Joyce Echessa on 10/16/14.
+//  Created by Joyce Echessa on 10/16/14.
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 //  Changes and features to be added by Son Phan on 04/27/15
 //  Open-source on Github.com/sonphanusa
-//  Modified by Bruno Lima Martins on 07/01/15.
-//  Copyright (c) 2015 Bruno Lima. All rights reserved.
-//
 
 import Foundation
 
@@ -31,36 +28,37 @@ class WeatherService {
         session = NSURLSession(configuration: configuration)
     }
     
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
-    
     func fetchWeatherData(latLong: String, completion: WeatherDataCompletionBlock) {
-        let apiKey = "YOURAPIKEY"
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let apiKey = "a6f20bd900f2753b6b107a1ab30bab5f"
         
-        if(apiKey=="YOURAPIKEY"){
-            NSLog("\n**********\nInsert APIKEY:\nWeatherDataKit>WeatherData>WeatherService\nhttps://developer.forecast.io/register\n**********")
-        }
-        
+        //        let apiKey = "94f0d4c9a77ee298721b483e88575206/"
         let baseUrl = NSURL(string: "https://api.forecast.io/forecast/"+apiKey+"/\(latLong)")
         let request = NSURLRequest(URL: baseUrl!)
         let task = session.dataTaskWithRequest(request) {[unowned self] data, response, error in
             if error == nil {
-                let jsonError: NSError?
-                var error: NSError?
-                if let weatherDictionary = NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments,error: &error) as? NSDictionary{
+
+                let weatherDictionary: NSDictionary
+               do { weatherDictionary = try (NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary)!
                     
+//                    .JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments,error: &error) as? NSDictionary{
+                
                     
-                    self.defaults.setObject(weatherDictionary, forKey:"weatherDictionary")
-                    self.defaults.synchronize()
+                    defaults.setObject(weatherDictionary, forKey:"weatherDictionary")
+                    defaults.synchronize()
                     let data = WeatherData(weatherDictionary: weatherDictionary)
                     completion(data: data, error: nil)
                     
+               } catch _ {
+                
                 }
+                
             } else {
-                if(self.defaults.objectForKey("weatherDictionary")==nil){
+                if(defaults.objectForKey("weatherDictionary")==nil){
                     completion(data: nil, error: error)
                 }
                 else{
-                    let weatherDictionary = self.defaults.objectForKey("weatherDictionary") as! NSDictionary
+                    let weatherDictionary = defaults.objectForKey("weatherDictionary") as! NSDictionary
                     let data = WeatherData(weatherDictionary: weatherDictionary)
                     completion(data: data, error: nil)
                 }
@@ -71,5 +69,5 @@ class WeatherService {
         task.resume()
     }
     
-
+    
 }

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Weather
+//  Weather CF
 //
 //  Created by Bruno Lima Martins on 5/5/15.
 //  Copyright (c) 2015 Bruno Lima. All rights reserved.
@@ -12,7 +12,7 @@ import CoreLocation
 
 class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UIScrollViewDelegate{
     
-    let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+    let defaults = NSUserDefaults.standardUserDefaults()
     var latLong = "41.3887242,-82.0722262"
     let locationManager = CLLocationManager()
     let locations  = ["name": "My Location", "latLong": ""]
@@ -25,7 +25,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshWeather:", name:"refreshWeather", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.action_notification_WatchButton(_:)), name:"updateFetchLogNotificationIdentifier", object: nil)
         
         dict.removeAll(keepCapacity: false)
         view.backgroundColor = UIColor(hue:0.58, saturation:0.92, brightness:0.84, alpha:1)
@@ -43,11 +43,11 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
             defaults.setObject(1 as Int?, forKey:"type")
             defaults.synchronize()
         }
-        self.navigationController?.topViewController.title = "Weather Lite"
+        self.navigationController?.topViewController!.title = "Weather Lite"
         scrollView.contentSize = CGSizeMake(0, 400)
         scrollView.contentOffset = CGPointMake(0,0)
         if let locationData = defaults.objectForKey("locationData") as? [String:String]{
-            if("\(locationData.0)" == "[latLong: , name: My Location]"){
+            if("\(locationData.first)" == "[latLong: , name: My Location]"){
                 locationLabel.text = self.defaults.objectForKey("placemark.locality") as? String
             }
             else{
@@ -65,7 +65,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
     }
     
     
-    func refreshWeather(notification:NSNotification) {
+    func action_notification_WatchButton(notification:NSNotification) {
         
         update()
     }
@@ -74,7 +74,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
         if(defaults.objectForKey("locationData")==nil){
             defaults.setObject(locations, forKey:"locationData")
             defaults.synchronize()
-            dict[0] = locations.0
+            dict[0] = locations//.first
             let dataSave = NSKeyedArchiver.archivedDataWithRootObject(dict)
             defaults.setObject(dataSave, forKey:"locationList")
             defaults.synchronize()
@@ -82,7 +82,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
         
         
         let locationData = defaults.objectForKey("locationData") as! [String:String]
-        if("\(locationData.0)" == "[latLong: , name: My Location]"){
+        if("\(locationData.first)" == "[latLong: , name: My Location]"){
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.requestWhenInUseAuthorization()
@@ -98,7 +98,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
                 if error == nil {
                     self.updateData()
                 }
-                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(0 as Int?, forKey:"refresh")
                 defaults.synchronize()
             })
@@ -110,7 +110,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
     
     func refresh(){
         let locationData = defaults.objectForKey("locationData") as! [String:String]
-        if("\(locationData.0)" == "[latLong: , name: My Location]"){
+        if("\(locationData.first)" == "[latLong: , name: My Location]"){
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.requestWhenInUseAuthorization()
@@ -127,7 +127,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
                     self.updateData()
                     
                 }
-                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(0 as Int?, forKey:"refresh")
                 defaults.synchronize()
             })
@@ -135,23 +135,24 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
-        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
             print("info")
             
             if (error != nil) {
-                NSLog("Error" + error.localizedDescription)
-                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+                NSLog("Error" + error!.localizedDescription)
+                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(0 as Int?, forKey:"refresh")
                 defaults.synchronize()
                 return
             }
             
-            if placemarks.count > 0 {
-                let placem = placemarks[0] as! CLPlacemark
+            if placemarks!.count > 0 {
+                let placem = placemarks![0] 
                 self.displayLocationInfo(placem)
             } else {
-                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(0 as Int?, forKey:"refresh")
                 defaults.synchronize()
                 NSLog("Placemarks = 0")
@@ -162,16 +163,16 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
     func displayLocationInfo(placemark: CLPlacemark) {
         
         if (placemark.name==nil) {
-            let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+            let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject(0 as Int?, forKey:"refresh")
             defaults.synchronize()
         }
             
         else{
             locationManager.stopUpdatingLocation()
-            print(placemark.location.coordinate.latitude)
-            print(placemark.location.coordinate.longitude)
-            latLong = String(stringInterpolationSegment: placemark.location.coordinate.latitude)+","+String(stringInterpolationSegment: placemark.location.coordinate.longitude)
+            print(placemark.location!.coordinate.latitude)
+            print(placemark.location!.coordinate.longitude)
+            latLong = String(stringInterpolationSegment: placemark.location!.coordinate.latitude)+","+String(stringInterpolationSegment: placemark.location!.coordinate.longitude)
             getWeatherData(latLong, completion: { (error) -> () in
                 if error == nil {
                     print(placemark.locality)
@@ -181,7 +182,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
                     self.updateData()
                     
                 }
-                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(0 as Int?, forKey:"refresh")
                 defaults.synchronize()
             })
@@ -189,7 +190,7 @@ class ViewController: WeatherDataViewController, CLLocationManagerDelegate, UISc
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.bdevapps.WeatherCF")!
+        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(0 as Int?, forKey:"refresh")
         defaults.synchronize()
     }
